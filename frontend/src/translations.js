@@ -10,15 +10,19 @@ export const translations = {
     },
     hero: {
       badge: "Leader nelle trasmissioni meccaniche",
-      title_1: "Viti a Ricircolo",
-      title_2: "di Sfere",
+      title_1: "Fornitura di",
+      title_2: "Viti a Ricircolo di Sfere",
       subtitle: "Precisione micrometrica, consegna immediata e qualità certificata. Il partner affidabile per la tua automazione industriale.",
-      btn_catalog: "Scarica Catalogo",
-      btn_contact: "Parla con un tecnico"
+      btn_contact: "Richiedi un Preventivo",
+      // NUOVI BOX
+      box_1: "Consegna garantita in tutta Europa",
+      box_2: "Qualità Certificata",
+      box_3: "Prezzo in linea col mercato",
+      box_4: "Esperienza da oltre 45 anni"
     },
     product: {
-      label: "Tecnologia del Movimento",
-      title: "Efficienza meccanica oltre il 90%",
+      label: "Efficienza e Precisione",
+      title: "Efficienza meccanica",
       desc_1: "Le <strong>viti a ricircolo di sfere Scaravella</strong> rappresentano lo stato dell'arte nella trasmissione del moto. A differenza delle tradizionali viti trapezie, il moto avviene per rotolamento di sfere in acciaio rettificato tra l'albero filettato e la madrevite.",
       desc_2: "Questo sistema elimina quasi completamente l'attrito radente, garantendo una <strong>vita utile prolungata</strong>, temperature di esercizio ridotte e una precisione di posizionamento centesimale indispensabile per le moderne macchine CNC e l'automazione industriale.",
       features: [
@@ -83,9 +87,8 @@ export const translations = {
     footer: {
       desc: "Specialisti nella movimentazione lineare e componentistica per l'automazione industriale."
     },
-    // QUESTA È LA PARTE CHE MANCAVA
     modal: {
-      title: "Parla con un Tecnico",
+      title: "Richiedi Un Preventivo",
       name_ph: "Nome e Cognome",
       email_ph: "Email",
       phone_ph: "Telefono",
@@ -106,15 +109,19 @@ export const translations = {
     },
     hero: {
       badge: "Leader in mechanical transmission",
-      title_1: "Precision Ball",
-      title_2: "Screws",
+      title_1: "Supply of",
+      title_2: "Recirculating Ball Screws",
       subtitle: "Micrometric precision, immediate delivery, and certified quality. The reliable partner for your industrial automation.",
-      btn_catalog: "Download Catalog",
-      btn_contact: "Talk to an engineer"
+      btn_contact: "Request a Quote",
+      // NUOVI BOX
+      box_1: "Guaranteed delivery across Europe",
+      box_2: "Certified Quality",
+      box_3: "Always competitive market pricing",
+      box_4: "Over 45 years of experience"
     },
     product: {
-      label: "Motion Technology",
-      title: "Mechanical efficiency over 90%",
+      label: "Efficiency and Precision",
+      title: "Mechanical efficiency",
       desc_1: "<strong>Scaravella ball screws</strong> represent the state of the art in motion transmission. Unlike traditional trapezoidal screws, motion occurs through the rolling of rectified steel balls between the threaded shaft and the nut.",
       desc_2: "This system almost completely eliminates sliding friction, ensuring a <strong>prolonged service life</strong>, reduced operating temperatures, and centesimal positioning precision essential for modern CNC machines and industrial automation.",
       features: [
@@ -179,9 +186,8 @@ export const translations = {
     footer: {
       desc: "Specialists in linear motion and components for industrial automation."
     },
-    // QUESTA È LA PARTE CHE MANCAVA
     modal: {
-      title: "Talk to an Engineer",
+      title: "Request a Quote",
       name_ph: "Name and Surname",
       email_ph: "Email",
       phone_ph: "Phone",

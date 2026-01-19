@@ -3,8 +3,11 @@ import axios from 'axios';
 import { Mail, Phone, Send, AlertCircle, CheckCircle } from 'lucide-react';
 import { useTranslation } from '../context/LanguageContext';
 
+
 const ContactSection = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+  // ...
+
   const [status, setStatus] = useState('idle');
   const { t } = useTranslation();
 
@@ -12,7 +15,9 @@ const ContactSection = () => {
     e.preventDefault();
     setStatus('loading');
     try {
-      await axios.post('http://localhost:8000/api/contact', formData);
+      // INCLUDI LANG NELLA RICHIESTA
+      await axios.post('http://localhost:8000/api/contact', { ...formData, lang: language });
+      
       setStatus('success');
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (err) {
@@ -44,16 +49,7 @@ const ContactSection = () => {
 
             <p className="text-gray-600 mb-8 leading-relaxed border-l-4 border-brand-accent pl-4">{t.contact.intro}</p>
 
-            <div className="grid sm:grid-cols-2 gap-6 mb-10">
-              <div className="flex items-start gap-3">
-                <Phone className="text-brand-accent mt-1" size={20}/>
-                <div><p className="font-bold text-brand-900 text-xs uppercase">{t.contact.phone_label}</p><p className="text-gray-700 font-bold">+39 0523 000000</p></div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Mail className="text-brand-accent mt-1" size={20}/>
-                <div><p className="font-bold text-brand-900 text-xs uppercase">{t.contact.email_label}</p><p className="text-brand-600 font-bold">info@scaravella.it</p></div>
-              </div>
-            </div>
+          
 
             <div className="w-full h-64 md:h-80 bg-gray-200 relative shadow-lg border-4 border-white">
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5637.4006131997785!2d9.653068176589006!3d45.05130316089264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4780dd264203912f%3A0xd7dd76500efdf466!2sScaravella%20Fratelli%20S.r.l.!5e0!3m2!1sit!2sit!4v1768561249520!5m2!1sit!2sit" className="w-full h-full grayscale hover:grayscale-0 transition-all duration-500" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Mappa Sede Scaravella"></iframe>
