@@ -28,7 +28,7 @@ const Navbar = () => {
 
             <div className="flex items-center gap-2 text-brand-900 font-bold border-l-2 border-gray-100 pl-6">
               <Phone size={18} className="text-brand-accent fill-current" />
-              <span>{t.nav.phone_label}</span>
+              <a href={`tel:${t.nav.phone_label.replace(/\s+/g, '')}`} className="hover:underline">{t.nav.phone_label}</a>
             </div>
             
             <a href="#contatti" className="px-5 lg:px-6 py-3 bg-brand-900 text-white font-bold text-xs uppercase hover:bg-brand-800 transition-all shadow-md hover:shadow-lg">
@@ -59,8 +59,8 @@ const Navbar = () => {
               
               <div className="py-4">
                  <p className="text-gray-400 text-xs uppercase mb-1">{t.nav.call_us}</p>
-                 <a href="tel:+390523000000" className="text-2xl font-black text-white flex items-center justify-center gap-2">
-                    <Phone className="text-brand-accent"/> 0523 000000
+                 <a href="tel:+390523480192" className="text-2xl font-black text-white flex items-center justify-center gap-2">
+                    <Phone className="text-brand-accent"/> 0523 480192
                  </a>
               </div>
 

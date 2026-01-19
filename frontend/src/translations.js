@@ -6,7 +6,7 @@ export const translations = {
       catalog: "Catalogo",
       contact: "Preventivo",
       call_us: "Chiamaci ora",
-      phone_label: "0523 000000"
+      phone_label: "0523 480192"
     },
     hero: {
       badge: "Leader nelle trasmissioni meccaniche",
@@ -81,7 +81,7 @@ export const translations = {
       form_title: "Inviaci una richiesta",
       form_name: "Nome e Cognome",
       form_name_ph: "Il tuo nome",
-      form_email: "Email Aziendale",
+      form_email: "Inserisci la tua Email",
       form_email_ph: "email@azienda.it",
       form_phone: "Telefono",
       form_phone_ph: "+39 ...",
@@ -115,7 +115,7 @@ export const translations = {
       catalog: "Catalog",
       contact: "Get Quote",
       call_us: "Call us now",
-      phone_label: "+39 0523 000000"
+      phone_label: "0523 480192"
     },
     hero: {
       badge: "Leader in mechanical transmission",
@@ -190,7 +190,7 @@ export const translations = {
       form_title: "Send us a request",
       form_name: "Name and Surname",
       form_name_ph: "Your name",
-      form_email: "Corporate Email",
+      form_email: "Enter your Email",
       form_email_ph: "email@company.com",
       form_phone: "Phone",
       form_phone_ph: "+39 ...",
