@@ -4,23 +4,23 @@ import { ExternalLink, FileText, CheckSquare, AlertCircle } from 'lucide-react';
 import { useTranslation } from '../context/LanguageContext';
 
 const CatalogSection = () => {
-  const [email, setEmail] = useState('');
+  // Stato aggiornato per gestire più campi
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '' });
   const [status, setStatus] = useState('idle');
-  const { t, language } = useTranslation(); // <--- Prendiamo anche 'language'
+  const { t, language } = useTranslation();
 
   const handleDownload = async (e) => {
     e.preventDefault();
     setStatus('loading');
     try {
-      // Inviamo anche la lingua al backend
+      // Inviamo tutti i dati al backend
       const response = await axios.post('http://localhost:8000/api/download-catalog', { 
-        email, 
+        ...formData, 
         lang: language 
       });
 
       if (response.data.status === 'success') {
         setStatus('success');
-        // Il backend ci restituirà il link corretto in base alla lingua
         window.location.href = response.data.link;
       }
     } catch (err) {
@@ -34,6 +34,7 @@ const CatalogSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow-2xl flex flex-col md:flex-row">
           
+          {/* Info Side */}
           <div className="w-full md:w-1/2 p-8 md:p-12 bg-brand-900 text-white relative overflow-hidden">
              <div className="relative z-10">
                 <FileText size={64} className="text-brand-accent mb-6" />
@@ -47,6 +48,7 @@ const CatalogSection = () => {
              <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-brand-accent rounded-full opacity-10 blur-3xl"></div>
           </div>
 
+          {/* Form Side */}
           <div className="w-full md:w-1/2 p-8 md:p-12 flex items-center">
             <div className="w-full">
               {status === 'success' ? (
@@ -55,17 +57,51 @@ const CatalogSection = () => {
                   <p className="text-sm text-green-700">{t.catalog.redirect_desc}</p>
                 </div>
               ) : (
-                <form onSubmit={handleDownload} className="space-y-6">
-                  <h3 className="text-xl font-black uppercase text-brand-900">{t.catalog.form_title}</h3>
+                <form onSubmit={handleDownload} className="space-y-4">
+                  <h3 className="text-xl font-black uppercase text-brand-900 mb-6">{t.catalog.form_title}</h3>
+                  
+                  {/* Nome e Cognome */}
                   <div>
-                    <label className="block text-xs font-bold uppercase text-gray-500 mb-2">{t.catalog.email_label}</label>
-                    <input type="email" required className="input-field" placeholder="nome@azienda.it" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    <label className="block text-xs font-bold uppercase text-gray-500 mb-1">{t.catalog.name_label}</label>
+                    <input 
+                      type="text" required 
+                      className="input-field w-full"
+                      placeholder={t.catalog.name_ph}
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    />
                   </div>
-                  <button type="submit" disabled={status === 'loading'} className="w-full btn-primary flex justify-center items-center gap-2">
+
+                  {/* Telefono */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase text-gray-500 mb-1">{t.catalog.phone_label}</label>
+                    <input 
+                      type="text" required 
+                      className="input-field w-full"
+                      placeholder={t.catalog.phone_ph}
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase text-gray-500 mb-1">{t.catalog.email_label}</label>
+                    <input 
+                      type="email" required 
+                      className="input-field w-full"
+                      placeholder="nome@azienda.it"
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    />
+                  </div>
+
+                  <button type="submit" disabled={status === 'loading'} className="w-full btn-primary flex justify-center items-center gap-2 mt-4">
                     {status === 'loading' ? t.catalog.loading : <>{t.catalog.btn_download} <ExternalLink size={20}/></>}
                   </button>
+                  
                   {status === 'error' && (
-                    <div className="flex items-center gap-2 text-red-600 text-sm font-bold"><AlertCircle size={16} /> {t.catalog.error}</div>
+                    <div className="flex items-center gap-2 text-red-600 text-sm font-bold mt-2"><AlertCircle size={16} /> {t.catalog.error}</div>
                   )}
                 </form>
               )}

@@ -9,7 +9,8 @@ const CtaStrip = () => {
 
   return (
     <>
-      <section className="bg-brand-accent py-10 md:py-12 border-y border-yellow-500">
+      {/* RIMOSSI i bordi (border-y border-yellow-500) */}
+      <section className="bg-brand-accent py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             
@@ -21,9 +22,10 @@ const CtaStrip = () => {
 
             <button 
               onClick={() => setIsModalOpen(true)}
-              className="flex-shrink-0 bg-brand-900 text-white hover:bg-white hover:text-brand-900 font-bold uppercase tracking-widest py-4 px-8 transition-all shadow-lg flex items-center gap-3 text-sm md:text-base"
+              className="flex-shrink-0 bg-brand-900 text-white hover:bg-white hover:text-brand-900 font-bold uppercase tracking-widest py-4 px-8 transition-all shadow-lg flex items-center gap-3 text-sm md:text-base group"
             >
-              {t.cta_strip.btn} <ArrowRight size={20} />
+              {t.cta_strip.btn} 
+              <ArrowRight size={20} className="transform group-hover:translate-x-1 transition-transform" />
             </button>
 
           </div>

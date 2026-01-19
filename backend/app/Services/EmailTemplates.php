@@ -109,4 +109,46 @@ class EmailTemplates {
             </div>
         </div>";
     }
+
+
+    /**
+     * Template Admin per Download Catalogo
+     */
+    public static function getCatalogAdminTemplate($data, $lang = 'it') {
+        $langLabel = ($lang === 'en') ? 'INGLESE (EN)' : 'ITALIANO (IT)';
+        
+        return "
+        <div style='background-color: #f1f5f9; padding: 40px 0; " . self::$styleBase . "'>
+            <div style='" . self::$styleContainer . "'>
+                <div style='" . self::$styleHeader . "'>
+                    <img src='" . self::$logoUrl . "' alt='Scaravella' style='height: 40px;'>
+                </div>
+                <div style='" . self::$styleBody . "'>
+                    <h2 style='color: #0f172a; margin-top: 0;'>Download Catalogo</h2>
+                    
+                    <div style='background-color: #f59e0b; color: white; padding: 5px 10px; display: inline-block; font-weight: bold; font-size: 12px; border-radius: 4px; margin-bottom: 20px;'>
+                        LINGUA: {$langLabel}
+                    </div>
+
+                    <p>Un nuovo utente ha effettuato l'accesso al catalogo digitale.</p>
+
+                    <table style='width: 100%; border-collapse: collapse; margin-top: 15px;'>
+                        <tr>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;'>Nome:</td>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee;'>" . htmlspecialchars($data['name']) . "</td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;'>Telefono:</td>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee;'>" . htmlspecialchars($data['phone']) . "</td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;'>Email:</td>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee;'><a href='mailto:" . htmlspecialchars($data['email']) . "' style='color: #2563eb;'>" . htmlspecialchars($data['email']) . "</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div style='" . self::$styleFooter . "'>Lead generato da scaravella.it</div>
+            </div>
+        </div>";
+    }
 }
