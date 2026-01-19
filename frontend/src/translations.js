@@ -82,6 +82,17 @@ export const translations = {
     },
     footer: {
       desc: "Specialisti nella movimentazione lineare e componentistica per l'automazione industriale."
+    },
+    // QUESTA È LA PARTE CHE MANCAVA
+    modal: {
+      title: "Parla con un Tecnico",
+      name_ph: "Nome e Cognome",
+      email_ph: "Email",
+      phone_ph: "Telefono",
+      msg_ph: "Messaggio...",
+      btn: "INVIA ORA",
+      success: "Richiesta Inviata!",
+      loading: "Attendere..."
     }
   },
   en: {
@@ -167,6 +178,17 @@ export const translations = {
     },
     footer: {
       desc: "Specialists in linear motion and components for industrial automation."
+    },
+    // QUESTA È LA PARTE CHE MANCAVA
+    modal: {
+      title: "Talk to an Engineer",
+      name_ph: "Name and Surname",
+      email_ph: "Email",
+      phone_ph: "Phone",
+      msg_ph: "Message...",
+      btn: "SEND NOW",
+      success: "Request Sent!",
+      loading: "Please wait..."
     }
   }
 };
