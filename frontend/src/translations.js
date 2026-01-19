@@ -31,7 +31,13 @@ export const translations = {
         "Ripetibilità di posizionamento"
       ],
       badge: "Pronta Consegna",
-      badge_desc: "Diametri e passi standard sempre disponibili a magazzino."
+      badge_desc: "Diametri e passi standard sempre disponibili a magazzino.",
+      btn_details: "Richiedi Scheda Tecnica"
+    },
+     // NUOVA SEZIONE
+    cta_strip: {
+        text: "Hai un progetto urgente o un fermo macchina?",
+        btn: "CHIEDI DISPONIBILITÀ IMMEDIATA"
     },
     video: {
       label: "Corporate",
@@ -130,7 +136,13 @@ export const translations = {
         "Positioning repeatability"
       ],
       badge: "Ready to Ship",
-      badge_desc: "Standard diameters and leads always available in stock."
+      badge_desc: "Standard diameters and leads always available in stock.",
+      btn_details: "Request Technical Sheet" // <--- NUOVO
+    },
+    // NUOVA SEZIONE
+    cta_strip: {
+        text: "Do you have an urgent project or machine downtime?",
+        btn: "CHECK IMMEDIATE AVAILABILITY"
     },
     video: {
       label: "Corporate",

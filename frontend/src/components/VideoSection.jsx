@@ -185,7 +185,7 @@ const VideoSection = () => {
             </div>
         </Reveal>
         
-        <p className="mt-8 text-gray-400 text-sm max-w-2xl mx-auto">{t.video.desc}</p>
+        <p className="mt-8 text-gray-400 text-base md:text-lg max-w-3xl mx-auto">{t.video.desc}</p>
       </div>
     </section>
   );

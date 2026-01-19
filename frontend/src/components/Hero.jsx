@@ -50,14 +50,13 @@ const Hero = () => {
                   </div>
               </motion.div>
 
-              {/* MODIFICA FONT SIZE QUI: ridotto da text-7xl a text-5xl/6xl */}
               <motion.h1 variants={itemVariants} className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black uppercase leading-tight mb-5">
                 {t.hero.title_1} <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-400">{t.hero.title_2}</span>
               </motion.h1>
 
-              {/* MODIFICA FONT SIZE QUI: ridotto leggermente */}
-              <motion.p variants={itemVariants} className="text-base sm:text-lg text-gray-400 mb-8 font-light border-l-4 border-brand-accent pl-5 leading-relaxed">
+              {/* MODIFICATO QUI: Font Size aumentato (text-lg sm:text-xl) */}
+              <motion.p variants={itemVariants} className="text-lg sm:text-xl text-gray-400 mb-8 font-light border-l-4 border-brand-accent pl-5 leading-relaxed">
                 {t.hero.subtitle}
               </motion.p>
               
