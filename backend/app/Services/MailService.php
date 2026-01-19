@@ -17,19 +17,21 @@ class MailService {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = $_ENV['SMTP_PORT'];
 
-            // Recipients
-            $mail->setFrom($_ENV['SMTP_USER'], 'Scaravella System');
-            $mail->addAddress($_ENV['ADMIN_EMAIL']);
+            // Mittente e Destinatario
+            $mail->setFrom($_ENV['SMTP_USER'], 'Scaravella Landing');
+            
+            // Qui usiamo la variabile d'ambiente, ma di base sarà info@scaravella.it
+            $mail->addAddress($_ENV['ADMIN_EMAIL']); 
 
-            // Content
+            // Contenuto Mail
             $mail->isHTML(true);
-            $mail->Subject = 'ALERT: Nuovo Download Catalogo';
-            $mail->Body    = "L'utente <b>{$userEmail}</b> ha scaricato il catalogo dal sito.";
+            $mail->Subject = 'Nuovo Accesso Catalogo HTML';
+            $mail->Body    = "L'utente <b>{$userEmail}</b> ha effettuato l'accesso al catalogo interattivo (HTML).";
 
             $mail->send();
             return true;
         } catch (Exception $e) {
-            // In produzione loggheresti l'errore su file
+            // Log errore (opzionale)
             return false;
         }
     }

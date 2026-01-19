@@ -3,7 +3,7 @@ import { motion, useInView } from "framer-motion";
 
 export const Reveal = ({ children, width = "fit-content", delay = 0.25 }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-75px" }); // Scatta una volta sola
+  const isInView = useInView(ref, { once: true, margin: "-75px" });
 
   return (
     <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
@@ -23,19 +23,19 @@ export const Reveal = ({ children, width = "fit-content", delay = 0.25 }) => {
 };
 
 export const SlideIn = ({ children, direction = "left", delay = 0.2 }) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
-  
-    const xOffset = direction === "left" ? -100 : 100;
-  
-    return (
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, x: xOffset }}
-        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: xOffset }}
-        transition={{ duration: 0.7, delay: delay, type: "spring", stiffness: 50 }}
-      >
-        {children}
-      </motion.div>
-    );
-  };
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const xOffset = direction === "left" ? -100 : 100;
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: xOffset }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: xOffset }}
+      transition={{ duration: 0.7, delay: delay, type: "spring", stiffness: 50 }}
+    >
+      {children}
+    </motion.div>
+  );
+};
