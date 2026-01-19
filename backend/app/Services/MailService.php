@@ -5,7 +5,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use Exception;
 
 class MailService {
-    public static function sendAdminAlert($userEmail) {
+    
+    // Modificato per accettare destinatario, oggetto e corpo HTML
+    public static function send($to, $subject, $bodyHtml) {
         $mail = new PHPMailer(true);
         try {
             // Server settings
@@ -16,22 +18,27 @@ class MailService {
             $mail->Password   = $_ENV['SMTP_PASS'];
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = $_ENV['SMTP_PORT'];
-
-            // Mittente e Destinatario
-            $mail->setFrom($_ENV['SMTP_USER'], 'Scaravella Landing');
             
-            // Qui usiamo la variabile d'ambiente, ma di base sarà info@scaravella.it
-            $mail->addAddress($_ENV['ADMIN_EMAIL']); 
+            // Charset UTF-8 per accenti italiani
+            $mail->CharSet = 'UTF-8';
 
-            // Contenuto Mail
+            // Mittente (Sempre Scaravella)
+            $mail->setFrom($_ENV['SMTP_USER'], 'Scaravella F.lli');
+            
+            // Destinatario Dinamico
+            $mail->addAddress($to);
+
+            // Contenuto
             $mail->isHTML(true);
-            $mail->Subject = 'Nuovo Accesso Catalogo HTML';
-            $mail->Body    = "L'utente <b>{$userEmail}</b> ha effettuato l'accesso al catalogo interattivo (HTML).";
+            $mail->Subject = $subject;
+            $mail->Body    = $bodyHtml;
+            // Versione testo semplice (fallback brutale ma utile)
+            $mail->AltBody = strip_tags($bodyHtml);
 
             $mail->send();
             return true;
         } catch (Exception $e) {
-            // Log errore (opzionale)
+            error_log("Mail Error: " . $mail->ErrorInfo);
             return false;
         }
     }

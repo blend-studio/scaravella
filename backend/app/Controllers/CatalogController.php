@@ -1,43 +1,41 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\CatalogDownload;
+use App\Models\Contact;
 use App\Services\MailService;
+use App\Services\EmailTemplates; // Importa i template
 
-class CatalogController {
-    public function download() {
+class ContactController {
+    public function submit() {
         $input = json_decode(file_get_contents('php://input'), true);
-        $email = $input['email'] ?? '';
-        $lang  = $input['lang'] ?? 'it'; // Default italiano se non specificato
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        // Validazione base
+        if (empty($input['name']) || empty($input['email']) || empty($input['message'])) {
             http_response_code(400);
-            echo json_encode(['status' => 'error', 'message' => 'Email non valida']);
+            echo json_encode(['status' => 'error', 'message' => 'Campi obbligatori mancanti']);
             return;
         }
 
         // 1. Salva nel DB
-        $model = new CatalogDownload();
-        $model->create($email);
+        $contact = new Contact();
+        $contact->create($input['name'], $input['email'], $input['phone'] ?? '', $input['message']);
 
-        // 2. Determina il Link in base alla lingua
-        if ($lang === 'en') {
-            $downloadLink = 'https://www.scaravella.eu/Download/Catalogo_Scaravella_EN.html';
-            $langLabel = 'Inglese (EN)';
-        } else {
-            $downloadLink = 'https://www.scaravella.it/Download/Catalogo_Scaravella.html';
-            $langLabel = 'Italiano (IT)';
-        }
+        // --- INVIO EMAIL ---
+        
+        // A. Email all'ADMIN (Staff Scaravella)
+        $adminHtml = EmailTemplates::getAdminContactTemplate($input);
+        $adminSubject = "Nuovo Lead dal Sito: " . $input['name'];
+        // Invia all'indirizzo admin definito nel .env
+        MailService::send($_ENV['ADMIN_EMAIL'], $adminSubject, $adminHtml);
 
-        // 3. Invia notifica all'Admin (specificando la lingua)
-        // Passiamo $langLabel se modifichi MailService, oppure lascia così.
-        // Per semplicità qui chiamo il service standard, ma potresti voler passare la lingua anche lì.
-        MailService::sendAdminAlert($email, $langLabel);
+        // B. Email al CLIENTE (Conferma)
+        $customerHtml = EmailTemplates::getCustomerConfirmationTemplate($input);
+        $customerSubject = "Conferma ricezione richiesta - Scaravella F.lli";
+        // Invia all'indirizzo inserito nel form
+        MailService::send($input['email'], $customerSubject, $customerHtml);
 
-        // 4. Restituisci il link corretto
-        echo json_encode([
-            'status' => 'success',
-            'link' => $downloadLink
-        ]);
+        // --- FINE INVIO ---
+
+        echo json_encode(['status' => 'success', 'message' => 'Richiesta inviata']);
     }
 }
