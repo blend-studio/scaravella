@@ -2,44 +2,57 @@
 namespace App\Services;
 
 use PHPMailer\PHPMailer\PHPMailer;
-use Exception;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
 class MailService {
-    
-    // Modificato per accettare destinatario, oggetto e corpo HTML
-    public static function send($to, $subject, $bodyHtml) {
+    public static function send($to, $subject, $body) {
         $mail = new PHPMailer(true);
+
         try {
-            // Server settings
+            // --- CONFIGURAZIONE DEBUG ---
+            // Livello 2: Mostra sia messaggi Client che Server
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER; 
+            
+            // Reindirizza l'output di debug nel log degli errori (o terminale) invece che a video
+            $mail->Debugoutput = function($str, $level) {
+                error_log("SMTP LOG: $str");
+            };
+
+            // --- SERVER SMTP ---
             $mail->isSMTP();
             $mail->Host       = $_ENV['SMTP_HOST'];
             $mail->SMTPAuth   = true;
             $mail->Username   = $_ENV['SMTP_USER'];
             $mail->Password   = $_ENV['SMTP_PASS'];
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            
+            // Selezione crittografia in base alla porta
+            if ($_ENV['SMTP_PORT'] == 465) {
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            } else {
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            }
+            
             $mail->Port       = $_ENV['SMTP_PORT'];
-            
-            // Charset UTF-8 per accenti italiani
-            $mail->CharSet = 'UTF-8';
+            $mail->Timeout    = 10; // Timeout massimo 10 secondi per evitare blocchi infiniti
 
-            // Mittente (Sempre Scaravella)
-            $mail->setFrom($_ENV['SMTP_USER'], 'Scaravella F.lli');
-            
-            // Destinatario Dinamico
+            // --- MITTENTE E DESTINATARIO ---
+            $mail->setFrom($_ENV['SMTP_USER'], 'Scaravella Landing');
             $mail->addAddress($to);
 
-            // Contenuto
+            // --- CONTENUTO ---
             $mail->isHTML(true);
+            $mail->CharSet = 'UTF-8';
             $mail->Subject = $subject;
-            $mail->Body    = $bodyHtml;
-            // Versione testo semplice (fallback brutale ma utile)
-            $mail->AltBody = strip_tags($bodyHtml);
+            $mail->Body    = $body;
 
             $mail->send();
             return true;
+
         } catch (Exception $e) {
-            error_log("Mail Error: " . $mail->ErrorInfo);
-            return false;
+            error_log("MailService Error: " . $mail->ErrorInfo);
+            // Rilanciamo l'eccezione per gestirla nel controller
+            throw new Exception("Errore invio mail: " . $mail->ErrorInfo);
         }
     }
 }

@@ -57,7 +57,6 @@ const Footer = () => {
             <div className="text-center lg:text-right text-xs leading-relaxed text-gray-400">
                 <p className="font-bold text-white mb-1">© 2024 - Scaravella F.lli Srl</p>
                 <p>Via Bentelli, 25 - 29121 PIACENZA - Italy</p>
-                <p className="mt-1">Tel. <a href="tel:+390523480192" className="hover:text-white">+39.0523.480192</a>  /  <a href="tel:+390523480121" className="hover:text-white">+39.0523.480121</a></p>
                 <p>p.iva 00102430337</p>
             </div>
 

@@ -5,17 +5,28 @@ import { useTranslation } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ContactModal = ({ isOpen, onClose }) => {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+  // 1. STATO AGGIORNATO (come in ContactSection)
+  const [formData, setFormData] = useState({ 
+    firstname: '', 
+    lastname: '', 
+    company: '', 
+    email: '', 
+    phone: '', 
+    message: '' 
+  });
+  
   const [status, setStatus] = useState('idle');
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
     try {
-      await axios.post('http://localhost:8000/api/contact', formData);
+      // Invia anche 'lang' per le email multilingua
+      await axios.post('http://localhost:8000/api/contact', { ...formData, lang: language });
       setStatus('success');
-      setFormData({ name: '', email: '', phone: '', message: '' });
+      // Reset completo
+      setFormData({ firstname: '', lastname: '', company: '', email: '', phone: '', message: '' });
       setTimeout(() => {
         setStatus('idle');
         onClose();
@@ -26,12 +37,14 @@ const ContactModal = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
   return (
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
           
-          {/* 1. OVERLAY SFONDO (Fade In/Out) */}
+          {/* OVERLAY */}
           <motion.div
             key="overlay"
             initial={{ opacity: 0 }}
@@ -42,15 +55,15 @@ const ContactModal = ({ isOpen, onClose }) => {
             onClick={onClose}
           />
 
-          {/* 2. BOX MODALE (Spring Pop Up) */}
+          {/* MODAL BOX */}
           <motion.div
             key="modal"
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="relative bg-white w-full max-w-lg shadow-2xl border-t-4 border-brand-accent z-10"
-            onClick={(e) => e.stopPropagation()} // Evita chiusura se clicchi dentro il box
+            className="relative bg-white w-full max-w-lg shadow-2xl border-t-4 border-brand-accent z-10 rounded-sm"
+            onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
             <div className="flex justify-between items-center p-6 border-b border-gray-100">
@@ -79,36 +92,72 @@ const ContactModal = ({ isOpen, onClose }) => {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  
+                  {/* NOME e COGNOME */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-[10px] font-bold uppercase text-gray-500 mb-1">{t.contact.form_firstname}</label>
+                        <input 
+                            type="text" name="firstname" required 
+                            placeholder={t.contact.form_firstname_ph} 
+                            className="input-field py-2 w-full text-sm"
+                            value={formData.firstname} onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-[10px] font-bold uppercase text-gray-500 mb-1">{t.contact.form_lastname}</label>
+                        <input 
+                            type="text" name="lastname" required 
+                            placeholder={t.contact.form_lastname_ph} 
+                            className="input-field py-2 w-full text-sm"
+                            value={formData.lastname} onChange={handleChange}
+                        />
+                    </div>
+                  </div>
+
+                  {/* AZIENDA */}
                   <div>
+                    <label className="block text-[10px] font-bold uppercase text-gray-500 mb-1">{t.contact.form_company}</label>
                     <input 
-                      type="text" required 
-                      placeholder={t.modal.name_ph} 
-                      className="input-field py-3"
-                      value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})}
+                        type="text" name="company" required 
+                        placeholder={t.contact.form_company_ph} 
+                        className="input-field py-2 w-full text-sm"
+                        value={formData.company} onChange={handleChange}
                     />
                   </div>
                   
+                  {/* EMAIL e TELEFONO */}
                   <div className="grid grid-cols-2 gap-4">
-                    <input 
-                      type="email" required 
-                      placeholder={t.modal.email_ph} 
-                      className="input-field py-3"
-                      value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})}
-                    />
-                    <input 
-                      type="text" 
-                      placeholder={t.modal.phone_ph} 
-                      className="input-field py-3"
-                      value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})}
-                    />
+                    <div>
+                        <label className="block text-[10px] font-bold uppercase text-gray-500 mb-1">{t.contact.form_email}</label>
+                        <input 
+                            type="email" name="email" required 
+                            placeholder={t.contact.form_email_ph} 
+                            className="input-field py-2 w-full text-sm"
+                            value={formData.email} onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-[10px] font-bold uppercase text-gray-500 mb-1">{t.contact.form_phone}</label>
+                        <input 
+                            type="text" name="phone" required 
+                            placeholder={t.contact.form_phone_ph} 
+                            className="input-field py-2 w-full text-sm"
+                            value={formData.phone} onChange={handleChange}
+                        />
+                    </div>
                   </div>
 
-                  <textarea 
-                    rows="4" required 
-                    placeholder={t.modal.msg_ph} 
-                    className="input-field py-3 resize-none"
-                    value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})}
-                  ></textarea>
+                  {/* MESSAGGIO */}
+                  <div>
+                    <label className="block text-[10px] font-bold uppercase text-gray-500 mb-1">{t.contact.form_msg}</label>
+                    <textarea 
+                        name="message" rows="3" 
+                        placeholder={t.contact.form_msg_ph} 
+                        className="input-field py-2 w-full text-sm resize-none"
+                        value={formData.message} onChange={handleChange}
+                    ></textarea>
+                  </div>
 
                   <div className="pt-2">
                     <motion.button 
@@ -116,7 +165,7 @@ const ContactModal = ({ isOpen, onClose }) => {
                       disabled={status === 'loading'} 
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className="w-full btn-primary flex justify-center items-center gap-2 py-4 shadow-lg"
+                      className="w-full btn-primary flex justify-center items-center gap-2 py-4 shadow-lg text-sm font-bold tracking-widest"
                     >
                       {status === 'loading' ? t.modal.loading : <>{t.modal.btn} <Send size={18} /></>}
                     </motion.button>

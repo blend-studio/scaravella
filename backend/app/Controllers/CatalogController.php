@@ -1,54 +1,73 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\CatalogDownload; // Assicurati di usare il modello corretto se esiste
 use App\Services\MailService;
 use App\Services\EmailTemplates;
+use PDO;
+use Exception;
 
 class CatalogController {
-    public function download() {
-        $input = json_decode(file_get_contents('php://input'), true);
-        
-        $email     = $input['email'] ?? '';
-        $firstname = $input['firstname'] ?? 'N/D';
-        $lastname  = $input['lastname'] ?? 'N/D';
-        $phone     = $input['phone'] ?? 'N/D';
-        $lang      = $input['lang'] ?? 'it';
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            http_response_code(400);
-            echo json_encode(['status' => 'error', 'message' => 'Email non valida']);
-            return;
-        }
-
-        // 1. Salva nel DB (Concateniamo se necessario per compatibilità)
-        $fullName = $firstname . ' ' . $lastname;
-        // $model = new CatalogDownload();
-        // $model->create($email, $fullName, $phone); // Esempio
-
-        // 2. Genera Email Admin
-        $adminHtml = EmailTemplates::getCatalogAdminTemplate([
-            'firstname' => $firstname,
-            'lastname' => $lastname,
-            'email' => $email,
-            'phone' => $phone
-        ], $lang);
-
-        $subject = "Download Catalogo - " . $firstname . " " . $lastname;
-        
-        // 3. Invia Mail
-        MailService::send($_ENV['ADMIN_EMAIL'], $subject, $adminHtml);
-
-        // 4. Link Download
-        if ($lang === 'en') {
-            $downloadLink = 'https://www.scaravella.eu/Download/Catalogo_Scaravella_EN.html';
-        } else {
-            $downloadLink = 'https://www.scaravella.it/Download/Catalogo_Scaravella.html';
-        }
-
-        echo json_encode([
-            'status' => 'success',
-            'link' => $downloadLink
+    private function getDB() {
+        $dsn = "mysql:host=" . $_ENV['DB_HOST'] . ";dbname=" . $_ENV['DB_NAME'] . ";charset=utf8mb4";
+        return new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASS'], [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
         ]);
+    }
+
+    public function download() {
+        header('Content-Type: application/json');
+
+        try {
+            $input = json_decode(file_get_contents('php://input'), true);
+            
+            $firstname = $input['firstname'] ?? 'N/D';
+            $lastname  = $input['lastname'] ?? 'N/D';
+            $email     = $input['email'] ?? '';
+            $phone     = $input['phone'] ?? 'N/D';
+            $lang      = $input['lang'] ?? 'it';
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'Email non valida']);
+                return;
+            }
+
+            // 1. DATABASE
+            $pdo = $this->getDB();
+            $stmt = $pdo->prepare("INSERT INTO catalog_downloads (firstname, lastname, email, phone) VALUES (?, ?, ?, ?)");
+            $stmt->execute([$firstname, $lastname, $email, $phone]);
+
+            // 2. EMAIL ADMIN
+            $adminHtml = EmailTemplates::getCatalogAdminTemplate([
+                'firstname' => $firstname,
+                'lastname' => $lastname,
+                'email' => $email,
+                'phone' => $phone
+            ], $lang);
+            MailService::send($_ENV['ADMIN_EMAIL'], "Download Catalogo - $firstname $lastname", $adminHtml);
+
+            // 3. LINK DOWNLOAD
+            $downloadLink = ($lang === 'en') 
+                ? 'https://www.scaravella.eu/Download/Catalogo_Scaravella_EN.html' 
+                : 'https://www.scaravella.it/Download/Catalogo_Scaravella.html';
+
+            // 4. EMAIL CLIENTE
+            try {
+                $clientHtml = EmailTemplates::getCatalogClientTemplate(['firstname' => $firstname], $downloadLink, $lang);
+                $subjectClient = ($lang === 'it') ? "Il tuo Catalogo Scaravella" : "Your Scaravella Catalog";
+                MailService::send($email, $subjectClient, $clientHtml);
+            } catch (Exception $e) {
+                error_log("Errore invio catalogo cliente: " . $e->getMessage());
+            }
+
+            echo json_encode(['status' => 'success', 'link' => $downloadLink]);
+
+        } catch (Exception $e) {
+            error_log("ERRORE CRITICO CatalogController: " . $e->getMessage());
+            http_response_code(500);
+            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
 }
