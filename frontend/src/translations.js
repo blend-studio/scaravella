@@ -14,7 +14,6 @@ export const translations = {
       title_2: "Viti a Ricircolo di Sfere",
       subtitle: "Precisione micrometrica, consegna immediata e qualità certificata. Il partner affidabile per la tua automazione industriale.",
       btn_contact: "Richiedi un Preventivo",
-      // NUOVI BOX
       box_1: "Consegna garantita in tutta Europa",
       box_2: "Qualità Certificata",
       box_3: "Prezzo in linea col mercato",
@@ -34,15 +33,14 @@ export const translations = {
       badge_desc: "Diametri e passi standard sempre disponibili a magazzino.",
       btn_details: "Richiedi Scheda Tecnica"
     },
-     // NUOVA SEZIONE
     cta_strip: {
-        text: "Hai un progetto urgente o un fermo macchina?",
-        btn: "CHIEDI DISPONIBILITÀ IMMEDIATA"
+      text: "Hai un progetto urgente o un fermo macchina?",
+      btn: "CHIEDI DISPONIBILITÀ IMMEDIATA"
     },
     video: {
-      label: "Corporate",
+      label: "Velocità di consegna, prodotto di assoluta qualità",
       title: "La Nostra Realtà Produttiva",
-      desc: "Un tour all'interno del nostro stabilimento per scoprire la tecnologia e la passione che mettiamo in ogni singolo pezzo."
+      desc: "Scopri il nostro reparto produttivo e la qualità del Made in Italy che ci contraddistingue da oltre 40 anni."
     },
     benefits: {
       title: "Perché sceglierci",
@@ -58,11 +56,14 @@ export const translations = {
       list_1: "Consultazione Immediata",
       list_2: "Sempre Aggiornato",
       form_title: "Scarica Catalogo",
-      name_label: "Nome e Cognome",
-      name_ph: "Il tuo nome",
+      // CAMPI AGGIORNATI (Nome e Cognome Separati)
+      form_firstname: "Nome",
+      form_firstname_ph: "Il tuo nome",
+      form_lastname: "Cognome",
+      form_lastname_ph: "Il tuo cognome",
       phone_label: "Telefono",
       phone_ph: "+39 ...",
-      email_label: "Inserisca la tua Email",
+      email_label: "Inserisci la tua Email",
       btn_download: "VAI AL CATALOGO",
       loading: "Attendere...",
       redirect: "Reindirizzamento...",
@@ -79,13 +80,18 @@ export const translations = {
       phone_label: "Telefono",
       email_label: "Email",
       form_title: "Inviaci una richiesta",
-      form_name: "Nome e Cognome",
-      form_name_ph: "Il tuo nome",
-      form_email: "Inserisci la tua Email",
+      // CAMPI AGGIORNATI (Nome, Cognome, Azienda, Email Aziendale)
+      form_firstname: "Nome",
+      form_firstname_ph: "Il tuo nome",
+      form_lastname: "Cognome",
+      form_lastname_ph: "Il tuo cognome",
+      form_company: "Azienda",
+      form_company_ph: "Nome della tua azienda",
+      form_email: "Email Aziendale",
       form_email_ph: "email@azienda.it",
       form_phone: "Telefono",
       form_phone_ph: "+39 ...",
-      form_msg: "Messaggio",
+      form_msg: "Messaggio (Opzionale)",
       form_msg_ph: "Specifiche tecniche, quantità, urgenza...",
       btn_send: "INVIA ORA",
       sending: "Invio...",
@@ -123,7 +129,6 @@ export const translations = {
       title_2: "Recirculating Ball Screws",
       subtitle: "Micrometric precision, immediate delivery, and certified quality. The reliable partner for your industrial automation.",
       btn_contact: "Request a Quote",
-      // NUOVI BOX
       box_1: "Guaranteed delivery across Europe",
       box_2: "Certified Quality",
       box_3: "Always competitive market pricing",
@@ -141,17 +146,16 @@ export const translations = {
       ],
       badge: "Ready to Ship",
       badge_desc: "Standard diameters and leads always available in stock.",
-      btn_details: "Request Technical Sheet" // <--- NUOVO
+      btn_details: "Request Technical Sheet"
     },
-    // NUOVA SEZIONE
     cta_strip: {
-        text: "Do you have an urgent project or machine downtime?",
-        btn: "CHECK IMMEDIATE AVAILABILITY"
+      text: "Do you have an urgent project or machine downtime?",
+      btn: "CHECK IMMEDIATE AVAILABILITY"
     },
     video: {
-      label: "Corporate",
+      label: "Fast delivery, product of uncompromising quality",
       title: "Our Production Reality",
-      desc: "A tour inside our facility to discover the technology and passion we put into every single piece."
+      desc: "Discover our production department and the Made in Italy quality that has distinguished us for over 40 years."
     },
     benefits: {
       title: "Why choose us",
@@ -167,11 +171,14 @@ export const translations = {
       list_1: "Immediate Consultation",
       list_2: "Always Updated",
       form_title: "Download Catalog",
-      name_label: "Name and Surname",
-      name_ph: "Your Name",
+      // CAMPI AGGIORNATI
+      form_firstname: "First Name",
+      form_firstname_ph: "Your first name",
+      form_lastname: "Last Name",
+      form_lastname_ph: "Your last name",
       phone_label: "Phone",
       phone_ph: "+39 ...",
-      email_label: "Insert your Email",
+      email_label: "Corporate Email",
       btn_download: "GO TO CATALOG",
       loading: "Please wait...",
       redirect: "Redirecting...",
@@ -188,13 +195,18 @@ export const translations = {
       phone_label: "Phone",
       email_label: "Email",
       form_title: "Send us a request",
-      form_name: "Name and Surname",
-      form_name_ph: "Your name",
-      form_email: "Enter your Email",
+      // CAMPI AGGIORNATI
+      form_firstname: "First Name",
+      form_firstname_ph: "Your first name",
+      form_lastname: "Last Name",
+      form_lastname_ph: "Your last name",
+      form_company: "Company",
+      form_company_ph: "Your company name",
+      form_email: "Corporate Email",
       form_email_ph: "email@company.com",
       form_phone: "Phone",
       form_phone_ph: "+39 ...",
-      form_msg: "Message",
+      form_msg: "Message (Optional)",
       form_msg_ph: "Technical specs, quantity, urgency...",
       btn_send: "SEND NOW",
       sending: "Sending...",

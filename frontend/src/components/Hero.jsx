@@ -4,6 +4,10 @@ import ContactModal from './ContactModal';
 import { motion } from 'framer-motion';
 import { useTranslation } from '../context/LanguageContext';
 
+// IMPORTA L'IMMAGINE LOCALE
+// Assicurati che il percorso sia corretto rispetto a dove si trova questo file Hero.jsx
+import heroBg from '../assets/close-up-machine-part (1).webp'; 
+
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { t } = useTranslation();
@@ -31,14 +35,26 @@ const Hero = () => {
   return (
     <>
       <section className="relative bg-brand-900 text-white pt-32 pb-20 lg:py-36 overflow-hidden">
-        <motion.div 
-            initial={{ scale: 1.1, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.15 }}
-            transition={{ duration: 1.5 }}
-            className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1531297461136-82bf9ce253e1?auto=format&fit=crop&q=80')] bg-cover bg-center pointer-events-none" 
-        />
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* --- SFONDO CON IMMAGINE E OVERLAY --- */}
+        <div className="absolute inset-0 z-0">
+            {/* 1. Immagine di Sfondo con effetto Zoom Iniziale */}
+            <motion.div 
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 2, ease: "easeOut" }}
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url('${heroBg}')` }}
+            />
+            
+            {/* 2. Overlay Scuro (Gradiente Blu Notte) per leggibilità testo */}
+            {/* bg-brand-900/85 significa colore brand al 85% di opacità */}
+            <div className="absolute inset-0 bg-brand-900/85 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent" />
+        </div>
+        
+        {/* Contenuto (z-10 per stare sopra l'immagine) */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             
@@ -55,7 +71,6 @@ const Hero = () => {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-400">{t.hero.title_2}</span>
               </motion.h1>
 
-              {/* MODIFICATO QUI: Font Size aumentato (text-lg sm:text-xl) */}
               <motion.p variants={itemVariants} className="text-lg sm:text-xl text-gray-400 mb-8 font-light border-l-4 border-brand-accent pl-5 leading-relaxed">
                 {t.hero.subtitle}
               </motion.p>

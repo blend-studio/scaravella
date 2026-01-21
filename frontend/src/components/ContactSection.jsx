@@ -1,103 +1,174 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Mail, Phone, Send, AlertCircle, CheckCircle } from 'lucide-react';
+import { Phone, Mail, Send, CheckCircle } from 'lucide-react'; // MapPin e AlertCircle rimossi se non usati
+import { Reveal } from './Reveal';
 import { useTranslation } from '../context/LanguageContext';
 
-
 const ContactSection = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
-  // ...
-
+  // 1. Aggiornato lo stato iniziale con i nuovi campi
+  const [formData, setFormData] = useState({ 
+    firstname: '', 
+    lastname: '', 
+    company: '', 
+    email: '', 
+    phone: '', 
+    message: '' 
+  });
+  
   const [status, setStatus] = useState('idle');
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
     try {
-      // INCLUDI LANG NELLA RICHIESTA
       await axios.post('http://localhost:8000/api/contact', { ...formData, lang: language });
-      
       setStatus('success');
-      setFormData({ name: '', email: '', phone: '', message: '' });
-    } catch (err) {
-      console.error(err);
-      setStatus('error');
+      // Reset form completo
+      setFormData({ firstname: '', lastname: '', company: '', email: '', phone: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch (err) { 
+      setStatus('error'); 
     }
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
-    <section id="contatti" className="py-12 md:py-24 bg-white border-t border-gray-100">
+    <section id="contatti" className="py-12 md:py-24 bg-white text-brand-900 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          
-          <div>
-            <div className="flex items-center gap-4 mb-6">
-               <h4 className="text-brand-600 font-bold uppercase tracking-widest text-sm">{t.contact.label}</h4>
-               <div className="h-px bg-brand-600 w-12"></div>
-            </div>
-            
-            <h2 className="text-3xl font-black text-brand-900 uppercase mb-8">{t.contact.title}</h2>
+        <Reveal width="100%">
+          <div className="text-center mb-16">
+            <h4 className="text-brand-600 font-bold uppercase tracking-widest mb-2 text-sm">{t.contact.label}</h4>
+            <h2 className="text-3xl md:text-4xl font-black uppercase text-brand-900">{t.contact.title}</h2>
+            <div className="w-16 h-1 bg-brand-accent mx-auto mt-6"></div>
+          </div>
+        </Reveal>
 
-            <div className="bg-slate-50 border border-slate-200 p-6 mb-10 rounded-none shadow-sm">
-                <div>
-                    <p className="text-brand-900 font-black uppercase text-lg">{t.contact.box_title}</p>
-                    <p className="text-gray-600 text-sm mb-2 mt-1">{t.contact.box_desc}</p>
-                    <div className="mt-3"><span className="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 font-bold uppercase rounded-sm">{t.contact.box_badge}</span></div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          
+          {/* Info Side (Invariato) */}
+          <div className="space-y-8">
+            <div className="bg-gray-50 p-8 border border-gray-100 shadow-sm">
+                <h3 className="text-2xl font-bold mb-4">{t.contact.box_title}</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">{t.contact.box_desc}</p>
+                <div className="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider border border-green-200">
+                   {t.contact.box_badge}
                 </div>
             </div>
 
-            <p className="text-gray-600 mb-8 leading-relaxed border-l-4 border-brand-accent pl-4">{t.contact.intro}</p>
-
-          
-
-            <div className="w-full h-64 md:h-80 bg-gray-200 relative shadow-lg border-4 border-white">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5637.4006131997785!2d9.653068176589006!3d45.05130316089264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4780dd264203912f%3A0xd7dd76500efdf466!2sScaravella%20Fratelli%20S.r.l.!5e0!3m2!1sit!2sit!4v1768561249520!5m2!1sit!2sit" className="w-full h-full grayscale hover:grayscale-0 transition-all duration-500" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Mappa Sede Scaravella"></iframe>
+            <div className="space-y-6 text-lg">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-brand-accent text-brand-900 flex items-center justify-center rounded-sm shadow-sm">
+                        <Phone size={24} />
+                    </div>
+                    <div>
+                        <p className="text-xs text-gray-500 uppercase font-bold">{t.contact.phone_label}</p>
+                        <p className="font-bold text-xl hover:text-brand-600 transition-colors">0523 480192</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-brand-accent text-brand-900 flex items-center justify-center rounded-sm shadow-sm">
+                        <Mail size={24} />
+                    </div>
+                    <div>
+                        <p className="text-xs text-gray-500 uppercase font-bold">{t.contact.email_label}</p>
+                        <p className="font-bold text-xl hover:text-brand-600 transition-colors">info@scaravella.it</p>
+                    </div>
+                </div>
             </div>
           </div>
 
-          <div className="bg-brand-900 p-6 md:p-10 text-white shadow-2xl relative overflow-hidden mt-8 lg:mt-0">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-accent opacity-10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-            
-            {status === 'success' ? (
-               <div className="h-full flex flex-col justify-center items-center text-center py-12">
-                 <CheckCircle size={64} className="text-green-400 mb-4" />
-                 <h3 className="text-2xl font-bold text-white mb-2">{t.contact.success_title}</h3>
-                 <p className="text-gray-300 mb-6">{t.contact.success_desc}</p>
-                 <button onClick={() => setStatus('idle')} className="text-brand-accent underline font-bold uppercase text-sm hover:text-white transition-colors">{t.contact.new_req}</button>
-               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                <h3 className="text-xl font-black uppercase text-white mb-6 border-b border-brand-800 pb-4">{t.contact.form_title}</h3>
-                
-                <div>
-                  <label className="block text-xs font-bold uppercase text-brand-accent mb-2">{t.contact.form_name}</label>
-                  <input type="text" required className="w-full bg-brand-800 border border-brand-700 text-white p-4 focus:ring-1 focus:ring-brand-accent outline-none transition-all placeholder-gray-500" placeholder={t.contact.form_name_ph} value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
+          {/* Form Side */}
+          <div className="bg-white text-brand-900 p-8 md:p-10 shadow-2xl border border-gray-100">
+             {status === 'success' ? (
+                <div className="text-center py-12">
+                    <CheckCircle size={64} className="mx-auto text-green-500 mb-4"/>
+                    <h3 className="text-2xl font-bold">{t.contact.success_title}</h3>
+                    <p className="text-gray-500 mt-2">{t.contact.success_desc}</p>
+                    <button onClick={() => setStatus('idle')} className="mt-8 text-sm font-bold underline text-brand-900">{t.contact.new_req}</button>
                 </div>
+             ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <h3 className="text-2xl font-black uppercase mb-6">{t.contact.form_title}</h3>
+                    
+                    {/* RIGA 1: NOME e COGNOME */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label className="block text-xs font-bold uppercase text-gray-500 mb-1">{t.contact.form_firstname}</label>
+                            <input 
+                                type="text" name="firstname" required 
+                                className="input-field w-full bg-gray-50 border-gray-200 focus:bg-white p-3" 
+                                placeholder={t.contact.form_firstname_ph} 
+                                value={formData.firstname} onChange={handleChange} 
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold uppercase text-gray-500 mb-1">{t.contact.form_lastname}</label>
+                            <input 
+                                type="text" name="lastname" required 
+                                className="input-field w-full bg-gray-50 border-gray-200 focus:bg-white p-3" 
+                                placeholder={t.contact.form_lastname_ph} 
+                                value={formData.lastname} onChange={handleChange} 
+                            />
+                        </div>
+                    </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-xs font-bold uppercase text-brand-accent mb-2">{t.contact.form_email}</label>
-                    <input type="email" required className="w-full bg-brand-800 border border-brand-700 text-white p-4 focus:ring-1 focus:ring-brand-accent outline-none placeholder-gray-500" placeholder={t.contact.form_email_ph} value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold uppercase text-brand-accent mb-2">{t.contact.form_phone}</label>
-                    <input type="text" className="w-full bg-brand-800 border border-brand-700 text-white p-4 focus:ring-1 focus:ring-brand-accent outline-none placeholder-gray-500" placeholder={t.contact.form_phone_ph} value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} />
-                  </div>
-                </div>
+                    {/* RIGA 2: AZIENDA (Nuovo Campo) */}
+                    <div>
+                        <label className="block text-xs font-bold uppercase text-gray-500 mb-1">{t.contact.form_company}</label>
+                        <input 
+                            type="text" name="company" required 
+                            className="input-field w-full bg-gray-50 border-gray-200 focus:bg-white p-3" 
+                            placeholder={t.contact.form_company_ph} 
+                            value={formData.company} onChange={handleChange} 
+                        />
+                    </div>
 
-                <div>
-                  <label className="block text-xs font-bold uppercase text-brand-accent mb-2">{t.contact.form_msg}</label>
-                  <textarea rows="4" required className="w-full bg-brand-800 border border-brand-700 text-white p-4 focus:ring-1 focus:ring-brand-accent outline-none resize-none placeholder-gray-500" placeholder={t.contact.form_msg_ph} value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})}></textarea>
-                </div>
+                    {/* RIGA 3: EMAIL e TELEFONO */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label className="block text-xs font-bold uppercase text-gray-500 mb-1">{t.contact.form_email}</label>
+                            <input 
+                                type="email" name="email" required 
+                                className="input-field w-full bg-gray-50 border-gray-200 focus:bg-white p-3" 
+                                placeholder={t.contact.form_email_ph} 
+                                value={formData.email} onChange={handleChange} 
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold uppercase text-gray-500 mb-1">{t.contact.form_phone}</label>
+                            <input 
+                                type="text" name="phone" required 
+                                className="input-field w-full bg-gray-50 border-gray-200 focus:bg-white p-3" 
+                                placeholder={t.contact.form_phone_ph} 
+                                value={formData.phone} onChange={handleChange} 
+                            />
+                        </div>
+                    </div>
 
-                <button type="submit" disabled={status === 'loading'} className="w-full bg-brand-accent text-brand-900 font-black uppercase tracking-widest py-4 hover:bg-white transition-all shadow-lg flex justify-center items-center gap-2">
-                  {status === 'loading' ? t.contact.sending : <>{t.contact.btn_send} <Send size={18} /></>}
-                </button>
-                {status === 'error' && ( <p className="text-red-400 text-xs font-bold text-center mt-2 flex justify-center items-center gap-2"><AlertCircle size={14}/> {t.contact.error}</p> )}
-              </form>
-            )}
+                    {/* RIGA 4: MESSAGGIO (Non required) */}
+                    <div>
+                        <label className="block text-xs font-bold uppercase text-gray-500 mb-1">{t.contact.form_msg}</label>
+                        {/* Rimosso 'required' da qui */}
+                        <textarea 
+                            name="message" rows="4" 
+                            className="input-field w-full bg-gray-50 border-gray-200 focus:bg-white resize-none p-3" 
+                            placeholder={t.contact.form_msg_ph} 
+                            value={formData.message} onChange={handleChange}
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" disabled={status === 'loading'} className="w-full btn-primary flex justify-center items-center gap-2 py-4 text-lg shadow-lg mt-2">
+                        {status === 'loading' ? t.contact.sending : <>{t.contact.btn_send} <Send size={20}/></>}
+                    </button>
+                    {status === 'error' && (<p className="text-red-600 text-sm font-bold text-center mt-2">{t.contact.error}</p>)}
+                </form>
+             )}
           </div>
+
         </div>
       </div>
     </section>

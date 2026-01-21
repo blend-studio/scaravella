@@ -6,13 +6,12 @@ import VideoSection from './components/VideoSection';
 import CtaStrip from './components/CtaStrip';
 import CatalogSection from './components/CatalogSection';
 import ContactSection from './components/ContactSection';
+import FloatingCta from './components/FloatingCta';
 import { Truck, ShieldCheck, Banknote } from 'lucide-react';
 import { useTranslation } from './context/LanguageContext';
 
-// --- Componente Vantaggi (ValueProps) ---
 const ValueProps = () => {
   const { t } = useTranslation();
-  
   const icons = [Truck, ShieldCheck, Banknote];
 
   return (
@@ -23,7 +22,8 @@ const ValueProps = () => {
             <div className="w-12 h-1 bg-brand-accent mx-auto mt-6"></div>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Questa griglia è ok a 2 colonne su iPad (md) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {t.benefits.items.map((item, i) => {
                 const Icon = icons[i];
                 return (
@@ -42,24 +42,22 @@ const ValueProps = () => {
   );
 };
 
-// --- Componente Footer Aggiornato ---
 const Footer = () => {
   const { t } = useTranslation();
   return (
     <footer className="bg-brand-900 text-gray-500 py-12 text-sm border-t border-brand-800">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+        {/* MODIFICA RESPONSIVE: flex-col lg:flex-row (Impila su iPad Verticale) */}
+        <div className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row justify-between items-center gap-8">
             
-            {/* Logo e Descrizione */}
-            <div className="text-center md:text-left">
-                <img src="https://www.scaravella.it/wp-content/uploads/2020/11/Logo_Web_2020.png" alt="Scaravella Logo" className="h-10 mb-4 brightness-0 invert opacity-50 mx-auto md:mx-0" />
+            <div className="text-center lg:text-left">
+                <img src="https://www.scaravella.it/wp-content/uploads/2020/11/Logo_Web_2020.png" alt="Scaravella Logo" className="h-10 mb-4 brightness-0 invert opacity-50 mx-auto lg:mx-0" />
                 <p className="max-w-xs text-xs">{t.footer.desc}</p>
             </div>
 
-            {/* Nuovi Dati Aziendali */}
-            <div className="text-center md:text-right text-xs leading-relaxed text-gray-400">
+            <div className="text-center lg:text-right text-xs leading-relaxed text-gray-400">
                 <p className="font-bold text-white mb-1">© 2024 - Scaravella F.lli Srl</p>
                 <p>Via Bentelli, 25 - 29121 PIACENZA - Italy</p>
-                <p>Tel. +39.0523.480192  /  +39.0523.480121</p>
+                <p className="mt-1">Tel. <a href="tel:+390523480192" className="hover:text-white">+39.0523.480192</a>  /  <a href="tel:+390523480121" className="hover:text-white">+39.0523.480121</a></p>
                 <p>p.iva 00102430337</p>
             </div>
 
@@ -68,7 +66,6 @@ const Footer = () => {
   );
 };
 
-// --- App Principale ---
 function App() {
   return (
     <div className="min-h-screen flex flex-col font-sans">
@@ -77,12 +74,12 @@ function App() {
         <Hero />
         <ProductIntro />
         <VideoSection />
+        <CtaStrip /> 
         <ValueProps />
-        <CtaStrip />
-
         <CatalogSection />
         <ContactSection />
       </main>
+      <FloatingCta /> 
       <Footer />
     </div>
   );

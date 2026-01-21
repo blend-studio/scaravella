@@ -13,10 +13,12 @@ class EmailTemplates {
     /**
      * Template Admin (Notifica interna)
      */
-    public static function getAdminContactTemplate($data, $lang = 'it') {
+/**
+     * Template Admin per Richiesta Contatto
+     */
+    public static function getContactAdminTemplate($data, $lang = 'it') {
         $langLabel = ($lang === 'en') ? 'INGLESE (EN)' : 'ITALIANO (IT)';
-        $langColor = ($lang === 'en') ? '#ef4444' : '#2563eb'; // Rosso per EN, Blu per IT per distinguerli a colpo d'occhio
-
+        
         return "
         <div style='background-color: #f1f5f9; padding: 40px 0; " . self::$styleBase . "'>
             <div style='" . self::$styleContainer . "'>
@@ -24,40 +26,45 @@ class EmailTemplates {
                     <img src='" . self::$logoUrl . "' alt='Scaravella' style='height: 40px;'>
                 </div>
                 <div style='" . self::$styleBody . "'>
-                    <h2 style='color: #0f172a; margin-top: 0;'>Nuovo Lead dal Sito</h2>
+                    <h2 style='color: #0f172a; margin-top: 0;'>Nuova Richiesta Contatto</h2>
                     
-                    <div style='background-color: {$langColor}; color: white; padding: 5px 10px; display: inline-block; font-weight: bold; font-size: 12px; border-radius: 4px; margin-bottom: 20px;'>
-                        LINGUA UTENTE: {$langLabel}
+                    <div style='background-color: #facc15; color: #422006; padding: 5px 10px; display: inline-block; font-weight: bold; font-size: 12px; border-radius: 4px; margin-bottom: 20px;'>
+                        LINGUA: {$langLabel}
                     </div>
 
-                    <table style='width: 100%; border-collapse: collapse; margin-top: 10px;'>
+                    <table style='width: 100%; border-collapse: collapse; margin-top: 15px;'>
                         <tr>
                             <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;'>Nome:</td>
-                            <td style='padding: 10px; border-bottom: 1px solid #eee;'>" . htmlspecialchars($data['name']) . "</td>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee;'>" . htmlspecialchars($data['firstname']) . "</td>
                         </tr>
                         <tr>
-                            <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;'>Email:</td>
-                            <td style='padding: 10px; border-bottom: 1px solid #eee;'><a href='mailto:" . htmlspecialchars($data['email']) . "' style='color: #2563eb;'>" . htmlspecialchars($data['email']) . "</a></td>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;'>Cognome:</td>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee;'>" . htmlspecialchars($data['lastname']) . "</td>
+                        </tr>
+                        <tr style='background-color: #f8fafc;'>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;'>Azienda:</td>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; color: #0f172a;'>" . htmlspecialchars($data['company']) . "</td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;'>Email Aziendale:</td>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee;'><a href='mailto:" . htmlspecialchars($data['email']) . "'>" . htmlspecialchars($data['email']) . "</a></td>
                         </tr>
                         <tr>
                             <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;'>Telefono:</td>
                             <td style='padding: 10px; border-bottom: 1px solid #eee;'>" . htmlspecialchars($data['phone']) . "</td>
                         </tr>
-                        <tr>
-                            <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; vertical-align: top;'>Messaggio:</td>
-                            <td style='padding: 10px; border-bottom: 1px solid #eee; white-space: pre-wrap;'>" . nl2br(htmlspecialchars($data['message'])) . "</td>
-                        </tr>
                     </table>
 
-                    <div style='margin-top: 30px; text-align: center;'>
-                        <a href='mailto:" . htmlspecialchars($data['email']) . "' style='background-color: #eded21; color: #0f172a; padding: 12px 24px; text-decoration: none; font-weight: bold; text-transform: uppercase; display: inline-block;'>Rispondi Ora</a>
+                    <div style='background-color: #f8fafc; padding: 15px; border-radius: 6px; margin-top: 20px; border: 1px solid #e2e8f0;'>
+                        <p style='margin: 0 0 5px 0; font-size: 12px; color: #64748b; font-weight: bold; text-transform: uppercase;'>Messaggio:</p>
+                        <p style='margin: 0; white-space: pre-wrap; color: #334155;'>" . (empty($data['message']) ? 'Nessun messaggio inserito.' : htmlspecialchars($data['message'])) . "</p>
                     </div>
+
                 </div>
                 <div style='" . self::$styleFooter . "'>Lead generato da scaravella.it</div>
             </div>
         </div>";
     }
-
     /**
      * Template Cliente (Multilingua)
      */
@@ -114,6 +121,9 @@ class EmailTemplates {
     /**
      * Template Admin per Download Catalogo
      */
+/**
+     * Template Admin per Download Catalogo
+     */
     public static function getCatalogAdminTemplate($data, $lang = 'it') {
         $langLabel = ($lang === 'en') ? 'INGLESE (EN)' : 'ITALIANO (IT)';
         
@@ -135,7 +145,11 @@ class EmailTemplates {
                     <table style='width: 100%; border-collapse: collapse; margin-top: 15px;'>
                         <tr>
                             <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;'>Nome:</td>
-                            <td style='padding: 10px; border-bottom: 1px solid #eee;'>" . htmlspecialchars($data['name']) . "</td>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee;'>" . htmlspecialchars($data['firstname']) . "</td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;'>Cognome:</td>
+                            <td style='padding: 10px; border-bottom: 1px solid #eee;'>" . htmlspecialchars($data['lastname']) . "</td>
                         </tr>
                         <tr>
                             <td style='padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;'>Telefono:</td>
@@ -151,4 +165,5 @@ class EmailTemplates {
             </div>
         </div>";
     }
+    
 }
