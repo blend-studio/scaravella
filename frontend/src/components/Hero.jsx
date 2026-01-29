@@ -5,8 +5,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from '../context/LanguageContext';
 
 // IMPORTA L'IMMAGINE LOCALE
-// Assicurati che il percorso sia corretto rispetto a dove si trova questo file Hero.jsx
-import heroBg from '../assets/close-up-machine-part (1).webp'; 
+import heroBg from '../assets/Chiocciola_Fault.jpg'; 
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,7 +37,7 @@ const Hero = () => {
         
         {/* --- SFONDO CON IMMAGINE E OVERLAY --- */}
         <div className="absolute inset-0 z-0">
-            {/* 1. Immagine di Sfondo con effetto Zoom Iniziale */}
+            {/* 1. Immagine di Sfondo */}
             <motion.div 
                 initial={{ scale: 1.1 }}
                 animate={{ scale: 1 }}
@@ -47,10 +46,11 @@ const Hero = () => {
                 style={{ backgroundImage: `url('${heroBg}')` }}
             />
             
-            {/* 2. Overlay Scuro (Gradiente Blu Notte) per leggibilità testo */}
-            {/* bg-brand-900/85 significa colore brand al 85% di opacità */}
-            <div className="absolute inset-0 bg-brand-900/85 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent" />
+            {/* 2. Overlay Blu: Ridotto al 30% (molto più chiaro) */}
+            <div className="absolute inset-0 bg-brand-900/30 mix-blend-multiply" />
+            
+            {/* 3. Gradiente Nero: Ridotto al 40% (solo per staccare il testo a sinistra) */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/10 to-transparent" />
         </div>
         
         {/* Contenuto (z-10 per stare sopra l'immagine) */}
@@ -61,17 +61,18 @@ const Hero = () => {
             {/* SINISTRA: Testo */}
             <motion.div variants={containerVariants} initial="hidden" animate="visible" className="max-w-2xl">
               <motion.div variants={itemVariants}>
-                  <div className="inline-block bg-brand-accent text-brand-900 font-bold text-[10px] sm:text-xs px-2 py-1 mb-4 uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)]">
+                  <div className="inline-block bg-brand-accent text-brand-900 font-bold text-[10px] sm:text-xs px-2 py-1 mb-4 uppercase tracking-wider shadow-md">
                     {t.hero.badge}
                   </div>
               </motion.div>
 
-              <motion.h1 variants={itemVariants} className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black uppercase leading-tight mb-5">
+              {/* Aggiunto drop-shadow-lg per leggere il testo su sfondo chiaro */}
+              <motion.h1 variants={itemVariants} className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black uppercase leading-tight mb-5 drop-shadow-lg">
                 {t.hero.title_1} <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-400">{t.hero.title_2}</span>
+                <span className="text-white">{t.hero.title_2}</span>
               </motion.h1>
 
-              <motion.p variants={itemVariants} className="text-lg sm:text-xl text-gray-400 mb-8 font-light border-l-4 border-brand-accent pl-5 leading-relaxed">
+              <motion.p variants={itemVariants} className="text-lg sm:text-xl text-white/90 mb-8 font-medium border-l-4 border-brand-accent pl-5 leading-relaxed drop-shadow-md">
                 {t.hero.subtitle}
               </motion.p>
               
@@ -80,7 +81,7 @@ const Hero = () => {
                   onClick={() => setIsModalOpen(true)}
                   whileHover={{ scale: 1.05, backgroundColor: "#facc15" }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-primary w-full sm:w-auto flex items-center justify-center gap-3 cursor-pointer text-center text-sm"
+                  className="btn-primary w-full sm:w-auto flex items-center justify-center gap-3 cursor-pointer text-center text-sm shadow-xl"
                 >
                   {t.hero.btn_contact} <ChevronRight size={18} />
                 </motion.button>
@@ -90,9 +91,10 @@ const Hero = () => {
             {/* DESTRA: Box */}
             <motion.div variants={containerVariants} initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {features.map((item, index) => (
-                <motion.div key={index} variants={itemVariants} className="bg-white/5 backdrop-blur-sm border border-white/10 p-5 hover:bg-white/10 transition-colors duration-300 group">
+                // Box semitrasparenti scuri per contrasto
+                <motion.div key={index} variants={itemVariants} className="bg-black/40 backdrop-blur-md border border-white/20 p-5 hover:bg-black/50 transition-colors duration-300 group rounded-sm shadow-lg">
                   <item.icon size={28} className="text-brand-accent mb-3 group-hover:scale-110 transition-transform duration-300" />
-                  <h3 className="text-white font-bold uppercase text-xs sm:text-sm tracking-wide leading-relaxed">{item.text}</h3>
+                  <h3 className="text-white font-bold uppercase text-xs sm:text-sm tracking-wide leading-relaxed drop-shadow-sm">{item.text}</h3>
                 </motion.div>
               ))}
             </motion.div>
