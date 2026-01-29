@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from '../context/LanguageContext';
 
 // IMPORTA L'IMMAGINE LOCALE
-import heroBg from '../assets/Chiocciola_Fault.jpg'; 
+import heroBg from '../assets/Chiocciola_Fault-rev.jpg'; 
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
