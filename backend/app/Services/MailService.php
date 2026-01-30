@@ -38,7 +38,27 @@ class MailService {
 
             // --- MITTENTE E DESTINATARIO ---
             $mail->setFrom($_ENV['SMTP_USER'], 'Scaravella Landing');
-            $mail->addAddress($to);
+
+            // Lettura destinatari da .env (supporta fino a due TO fissi)
+            $to1 = isset($_ENV['RECIPIENT_TO_1']) ? trim($_ENV['RECIPIENT_TO_1']) : null;
+            $to2 = isset($_ENV['RECIPIENT_TO_2']) ? trim($_ENV['RECIPIENT_TO_2']) : null;
+            $bcc = isset($_ENV['RECIPIENT_BCC']) ? trim($_ENV['RECIPIENT_BCC']) : null;
+
+            if ($to1) $mail->addAddress($to1);
+            if ($to2) $mail->addAddress($to2);
+
+            // Fallback: se non ci sono destinatari fissi, usare il parametro $to
+            if (!$to1 && !$to2 && $to) {
+                $mail->addAddress($to);
+            }
+
+            if ($bcc) {
+                // Supporta più BCC separati da virgola
+                $bccs = array_map('trim', explode(',', $bcc));
+                foreach ($bccs as $b) {
+                    if ($b) $mail->addBCC($b);
+                }
+            }
 
             // --- CONTENUTO ---
             $mail->isHTML(true);
