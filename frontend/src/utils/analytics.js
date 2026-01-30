@@ -3,7 +3,7 @@ import axios from 'axios';
 export const trackPhoneClick = (section) => {
   console.log(`[Analytics] Click rilevato su: ${section}`); // LOG 1
 
-  axios.post('http://localhost:8000/api/track-phone', { section })
+    axios.post('https://ballscrews.it/api/track-phone', { section })
     .then(response => {
         console.log("[Analytics] Tracking inviato con successo:", response.data); // LOG 2
     })

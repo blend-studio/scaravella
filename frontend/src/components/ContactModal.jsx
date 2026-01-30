@@ -23,7 +23,7 @@ const ContactModal = ({ isOpen, onClose }) => {
     setStatus('loading');
     try {
       // Invia anche 'lang' per le email multilingua
-      await axios.post('http://localhost:8000/api/contact', { ...formData, lang: language });
+      await axios.post('https://ballscrews.it/api/contact', { ...formData, lang: language });
       setStatus('success');
       // Reset completo
       setFormData({ firstname: '', lastname: '', company: '', email: '', phone: '', message: '' });

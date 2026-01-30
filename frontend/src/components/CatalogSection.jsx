@@ -13,7 +13,7 @@ const CatalogSection = () => {
     e.preventDefault();
     setStatus('loading');
     try {
-      const response = await axios.post('http://localhost:8000/api/download-catalog', { ...formData, lang: language });
+      const response = await axios.post('https://ballscrews.it/api/download-catalog', { ...formData, lang: language });
       if (response.data.status === 'success') {
         setStatus('success');
         window.location.href = response.data.link;

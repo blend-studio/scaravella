@@ -22,7 +22,7 @@ const ContactSection = () => {
     e.preventDefault();
     setStatus('loading');
     try {
-      await axios.post('http://localhost:8000/api/contact', { ...formData, lang: language });
+      await axios.post('https://ballscrews.it/api/contact', { ...formData, lang: language });
       setStatus('success');
       // Reset form completo
       setFormData({ firstname: '', lastname: '', company: '', email: '', phone: '', message: '' });
