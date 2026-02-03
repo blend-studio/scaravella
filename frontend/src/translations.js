@@ -64,6 +64,7 @@ export const translations = {
       phone_label: "Telefono",
       phone_ph: "+39 ...",
       email_label: "Inserisci la tua Email",
+      form_email_ph: "email@azienda.it",
       btn_download: "VAI AL CATALOGO",
       loading: "Attendere...",
       redirect: "Reindirizzamento...",
@@ -101,7 +102,9 @@ export const translations = {
       error: "Errore di connessione."
     },
     footer: {
-      desc: "Specialisti nella movimentazione lineare e componentistica per l'automazione industriale."
+      desc: "Specialisti nella movimentazione lineare e componentistica per l'automazione industriale.",
+      vat_label: "P.IVA",
+      vat_number: "00102430337"
     },
     modal: {
       title: "Richiedi Un Preventivo",
@@ -182,6 +185,7 @@ export const translations = {
       phone_label: "Phone",
       phone_ph: "+39 ...",
       email_label: "Corporate Email",
+      form_email_ph: "email@company.com",
       btn_download: "Go to Catalogue",
       loading: "Please wait...",
       redirect: "Redirecting...",
@@ -220,7 +224,8 @@ export const translations = {
     },
     footer: {
       desc: "Specialists in linear motion and components for industrial automation.",
-      vat: "VAT"
+      vat_label: "VAT",
+      vat_number: "00102430337"
     },
     modal: {
       title: "Request For Quote (RFQ)",

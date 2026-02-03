@@ -57,7 +57,7 @@ const Footer = () => {
             <div className="text-center lg:text-right text-xs leading-relaxed text-gray-400">
                 <p className="font-bold text-white mb-1">© 2024 - Scaravella F.lli Srl</p>
                 <p>Via Bentelli, 25 - 29121 PIACENZA - Italy</p>
-                <p>p.iva 00102430337</p>
+              <p>{t.footer.vat_label} {t.footer.vat_number}</p>
             </div>
 
         </div>

@@ -96,7 +96,7 @@ const CatalogSection = () => {
                     <input 
                         type="email" name="email" required 
                         className="input-field w-full p-3" 
-                        placeholder="nome@azienda.it" 
+                        placeholder={t.catalog.form_email_ph} 
                         value={formData.email} onChange={handleChange} 
                     />
                   </div>
