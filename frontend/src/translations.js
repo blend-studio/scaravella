@@ -112,6 +112,9 @@ export const translations = {
       btn: "INVIA ORA",
       success: "Richiesta Inviata!",
       loading: "Attendere..."
+    },
+    floating_cta: {
+      btn: "Preventivo"
     }
   },
   en: {
@@ -127,7 +130,7 @@ export const translations = {
       badge: "Leader in mechanical transmission",
       title_1: "Supply of",
       title_2: "Ball Screw Assemblies",
-      subtitle: "Certified precision, high performance, fast delivery, and guaranteed quality. The reliable solution compliant with industrial standards.",     
+      subtitle: "Certified precision  to meet the most diverse requirements, high performance, fast delivery, and guaranteed quality. The reliable solution compliant with industrial standards.",     
       btn_contact: "Request For Quote (RFQ)",
       box_1: "Guaranteed delivery across Europe",
       box_2: "Certified Quality",
@@ -149,28 +152,28 @@ export const translations = {
       btn_details: "Request for technical data sheet"
     },
     cta_strip: {
-      text: "Do you have an urgent project or machine downtime?",
+      text: "Do you have any urgent project or machine downtime related to any ball screws to solve?",
       btn: "REQUEST FOR QUOTE (RFQ)"
     },
     video: {
       label: "Fast delivery, product of uncompromising quality",
-      title: "Our Production Reality",
+      title: "Our Manufacturing operations",
       desc: "Discover our production activities and the Made in Italy quality that has distinguished us for over 40 years."
     },
     benefits: {
       title: "Why choose us",
       items: [
         { title: "Fast Shipping", desc: "Assorted warehouse with standard sizes to minimise delivery times and possible machine downtime. We ship within 4 days" },
-        { title: "ISO Quality", desc: "Ground steels and rigorous dimensional checks on every single piece leaving production." },
-        { title: "Direct Price", desc: "From manufacturer to end customer. We skip intermediaries to offer you the best quality-price ratio." }
+        { title: "ISO Quality", desc: "High-quality steel and rigorous dimensional checks on every single piece we produce." },
+        { title: "Direct Price", desc: "From the manufacturer to the end user to offer you the best value for money." }
       ]
     },
     catalog: {
       title: "Interactive catalogue",
-      desc: "Access the complete digital version of the Scaravella catalog. Consult load tables, technical drawings and ISO/DIN specifications online.",
+      desc: "Access the complete digital version of the Scaravella catalogue. Consult load tables, technical drawings and ISO/DIN specifications online.",
       list_1: "Prompt access",
       list_2: "Always Updated",
-      form_title: "Download Catalog",
+      form_title: "Download Catalogue",
       // CAMPI AGGIORNATI
       form_firstname: "First Name",
       form_firstname_ph: "Your first name",
@@ -189,7 +192,7 @@ export const translations = {
       label: "We are here for you",
       title: "Talk to our Technical Office",
       box_title: "Direct Support",
-      box_desc: "Our experts guide you in choosing the correct sizing for your application.",
+      box_desc: "Our experts can guide you in choosing the most suitable product for your applications.",
       box_badge: "guaranteed response within 24 hours",
       intro: "Do you need special machining or an urgent supply? Fill out the form or call us directly.",
       phone_label: "Phone",
@@ -228,6 +231,9 @@ export const translations = {
       btn: "SEND NOW",
       success: "Request Sent!",
       loading: "Please wait..."
+    },
+    floating_cta: {
+      btn: "RFQ"
     }
   }
 };

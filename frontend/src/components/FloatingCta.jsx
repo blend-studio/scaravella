@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { MessageSquareText } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ContactModal from './ContactModal';
+import { useTranslation } from '../context/LanguageContext';
 
 const FloatingCta = () => {
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -42,12 +44,12 @@ const FloatingCta = () => {
             
             <MessageSquareText size={24} className="md:w-6 md:h-6" strokeWidth={2.5} />
             
-            {/* TESTO PREVENTIVO:
+            {/* TESTO PREVENTIVO/RFQ:
                 - hidden: nascosto su mobile piccolissimo
                 - sm:block: visibile da 640px in su (Tablet e Desktop)
             */}
             <span className="hidden sm:block font-black uppercase tracking-wider text-xs md:text-sm whitespace-nowrap pr-1">
-                Preventivo
+                {t.floating_cta.btn}
             </span>
           </motion.button>
         )}
