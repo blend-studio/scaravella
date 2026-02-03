@@ -121,7 +121,7 @@ export const translations = {
     nav: {
       product: "The Product",
       benefits: "Benefits",
-      catalog: "Catalog",
+      catalog: "Catalogue",
       contact: "Request For Quote (RFQ)",
       call_us: "Call us now",
       phone_label: "0523 480192"
