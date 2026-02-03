@@ -29,7 +29,9 @@ export const LanguageProvider = ({ children }) => {
   const changeLanguage = (lang) => {
     setLanguage(lang);
     // Aggiorna l'URL con il nuovo linguaggio
-    window.history.pushState({}, '', `/${lang}`);
+    // Se è italiano, va alla root '/'. Se è inglese, va a '/en'
+    const newPath = lang === 'it' ? '/' : '/en';
+    window.history.pushState({}, '', newPath);
   };
 
   // Ottieni le traduzioni in base alla lingua corrente
