@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { translations } from '../translations';
 
 // Crea il Context
@@ -6,12 +6,30 @@ const LanguageContext = createContext();
 
 // Crea il Provider
 export const LanguageProvider = ({ children }) => {
-  // Stato per la lingua corrente (default italiano 'it')
-  const [language, setLanguage] = useState('it');
+  // Estrai la lingua dall'URL (path) o usa 'it' come default
+  const getLanguageFromURL = () => {
+    const path = window.location.pathname;
+    if (path.startsWith('/en')) return 'en';
+    if (path.startsWith('/it')) return 'it';
+    return 'it'; // default
+  };
 
-  // Funzione per cambiare lingua
+  // Stato per la lingua corrente
+  const [language, setLanguage] = useState(getLanguageFromURL());
+
+  // Effetto: quando la pagina si carica, verifica l'URL
+  useEffect(() => {
+    const urlLang = getLanguageFromURL();
+    if (urlLang !== language) {
+      setLanguage(urlLang);
+    }
+  }, []);
+
+  // Funzione per cambiare lingua e aggiornare URL
   const changeLanguage = (lang) => {
     setLanguage(lang);
+    // Aggiorna l'URL con il nuovo linguaggio
+    window.history.pushState({}, '', `/${lang}`);
   };
 
   // Ottieni le traduzioni in base alla lingua corrente
@@ -22,7 +40,7 @@ export const LanguageProvider = ({ children }) => {
   const value = {
     t,
     language,
-    changeLanguage, // <--- QUESTA è la funzione che mancava o non veniva passata
+    changeLanguage,
   };
 
   return (

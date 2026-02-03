@@ -119,16 +119,16 @@ export const translations = {
       product: "The Product",
       benefits: "Benefits",
       catalog: "Catalog",
-      contact: "Get Quote",
+      contact: "Request For Quote (RFQ)",
       call_us: "Call us now",
       phone_label: "0523 480192"
     },
     hero: {
       badge: "Leader in mechanical transmission",
       title_1: "Supply of",
-      title_2: "Recirculating Ball Screws",
-      subtitle: "Certified micrometric precision, high performance, fast delivery, and guaranteed quality. The reliable solution compliant with industrial standards.",     
-      btn_contact: "Request a Quote",
+      title_2: "Ball Screw Assemblies",
+      subtitle: "Certified precision, high performance, fast delivery, and guaranteed quality. The reliable solution compliant with industrial standards.",     
+      btn_contact: "Request For Quote (RFQ)",
       box_1: "Guaranteed delivery across Europe",
       box_2: "Certified Quality",
       box_3: "Always competitive market pricing",
@@ -138,7 +138,7 @@ export const translations = {
       label: "Efficiency and Precision",
       title: "Mechanical efficiency",
       desc_1: "<strong>SCARAVELLA ball screws</strong> allow for high-efficiency linear motion transmission. The rolling of balls between the screw and nut drastically reduces friction compared to trapezoidal solutions, ensuring low losses, contained wear, and long life.",
-      desc_2: "This system almost completely eliminates sliding friction, ensuring a <strong>prolonged service life</strong>, reduced operating temperatures, and centesimal positioning precision essential for modern CNC machines and industrial automation.",
+      desc_2: "This system has no sliding friction, ensuring a prolonged service life, reduced operating temperatures, and precision positioning essential for modern CNC machines and industrial automation.",
       features: [
         "Reduced or zero axial play (Preload)",
         "High static and dynamic rigidity",
@@ -146,29 +146,29 @@ export const translations = {
       ],
       badge: "Ready to Ship",
       badge_desc: "Standard diameters and leads always available in stock.",
-      btn_details: "Request Technical Sheet"
+      btn_details: "Request for technical data sheet"
     },
     cta_strip: {
       text: "Do you have an urgent project or machine downtime?",
-      btn: "CHECK IMMEDIATE AVAILABILITY"
+      btn: "REQUEST FOR QUOTE (RFQ)"
     },
     video: {
       label: "Fast delivery, product of uncompromising quality",
       title: "Our Production Reality",
-      desc: "Discover our production department and the Made in Italy quality that has distinguished us for over 40 years."
+      desc: "Discover our production activities and the Made in Italy quality that has distinguished us for over 40 years."
     },
     benefits: {
       title: "Why choose us",
       items: [
-        { title: "Fast Shipping", desc: "Warehouse stocked with standard sizes to minimize your machine downtime. We ship in 24/48h." },
+        { title: "Fast Shipping", desc: "Assorted warehouse with standard sizes to minimise delivery times and possible machine downtime. We ship within 4 days" },
         { title: "ISO Quality", desc: "Ground steels and rigorous dimensional checks on every single piece leaving production." },
         { title: "Direct Price", desc: "From manufacturer to end customer. We skip intermediaries to offer you the best quality-price ratio." }
       ]
     },
     catalog: {
-      title: "Interactive Catalog",
-      desc: "Access the complete digital version of the Scaravella catalog. Consult load tables, technical drawings, and ISO/DIN specifications online.",
-      list_1: "Immediate Consultation",
+      title: "Interactive catalogue",
+      desc: "Access the complete digital version of the Scaravella catalog. Consult load tables, technical drawings and ISO/DIN specifications online.",
+      list_1: "Prompt access",
       list_2: "Always Updated",
       form_title: "Download Catalog",
       // CAMPI AGGIORNATI
@@ -179,7 +179,7 @@ export const translations = {
       phone_label: "Phone",
       phone_ph: "+39 ...",
       email_label: "Corporate Email",
-      btn_download: "GO TO CATALOG",
+      btn_download: "Go to Catalogue",
       loading: "Please wait...",
       redirect: "Redirecting...",
       redirect_desc: "You are being redirected to the online catalog.",
@@ -190,7 +190,7 @@ export const translations = {
       title: "Talk to our Technical Office",
       box_title: "Direct Support",
       box_desc: "Our experts guide you in choosing the correct sizing for your application.",
-      box_badge: "Guaranteed response in 4h",
+      box_badge: "guaranteed response within 24 hours",
       intro: "Do you need special machining or an urgent supply? Fill out the form or call us directly.",
       phone_label: "Phone",
       email_label: "Email",
@@ -216,10 +216,11 @@ export const translations = {
       error: "Connection error."
     },
     footer: {
-      desc: "Specialists in linear motion and components for industrial automation."
+      desc: "Specialists in linear motion and components for industrial automation.",
+      vat: "VAT"
     },
     modal: {
-      title: "Request a Quote",
+      title: "Request For Quote (RFQ)",
       name_ph: "Name and Surname",
       email_ph: "Email",
       phone_ph: "Phone",
