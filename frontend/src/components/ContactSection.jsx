@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Phone, Mail, Send, CheckCircle } from 'lucide-react'; // MapPin e AlertCircle rimossi se non usati
 import { Reveal } from './Reveal';
 import { useTranslation } from '../context/LanguageContext';
+import { trackPhoneClick } from '../utils/analytics';
 
 const ContactSection = () => {
   // 1. Aggiornato lo stato iniziale con i nuovi campi
@@ -66,7 +67,7 @@ const ContactSection = () => {
                     </div>
                     <div>
                         <p className="text-xs text-gray-500 uppercase font-bold">{t.contact.phone_label}</p>
-                        <p className="font-bold text-xl hover:text-brand-600 transition-colors">0523 480192</p>
+                        <a href="tel:+390523480192" onClick={() => trackPhoneClick('contact_section')} className="font-bold text-xl hover:text-brand-600 transition-colors">0523 480192</a>
                     </div>
                 </div>
                 <div className="flex items-center gap-4">

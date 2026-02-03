@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, Globe } from 'lucide-react';
 import { useTranslation } from '../context/LanguageContext';
+import { trackPhoneClick } from '../utils/analytics';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,7 +52,7 @@ const Navbar = () => {
             </button>
 
             <div className={`flex items-center gap-4 pl-4 border-l ${scrolled ? 'border-gray-200' : 'border-gray-700'}`}>
-                <a href="tel:+390523480192" className={`flex items-center gap-2 transition-colors ${scrolled ? 'text-brand-900 hover:text-brand-600' : 'text-brand-accent hover:text-white'}`}>
+                <a href="tel:+390523480192" onClick={() => trackPhoneClick('navbar')} className={`flex items-center gap-2 transition-colors ${scrolled ? 'text-brand-900 hover:text-brand-600' : 'text-brand-accent hover:text-white'}`}>
                     <Phone size={18} />
                     <span className="font-bold">{t.nav.phone_label}</span>
                 </a>
@@ -80,7 +81,7 @@ const Navbar = () => {
             <button onClick={() => scrollToSection('prodotto')} className="block w-full text-left hover:text-brand-600 font-bold uppercase py-2 border-b border-gray-100">{t.nav.product}</button>
             <button onClick={() => scrollToSection('vantaggi')} className="block w-full text-left hover:text-brand-600 font-bold uppercase py-2 border-b border-gray-100">{t.nav.benefits}</button>
             <button onClick={() => scrollToSection('catalogo')} className="block w-full text-left hover:text-brand-600 font-bold uppercase py-2 border-b border-gray-100">{t.nav.catalog}</button>
-            <a href="tel:+390523480192" className="flex items-center gap-3 text-brand-900 py-2">
+            <a href="tel:+390523480192" onClick={() => trackPhoneClick('navbar_mobile')} className="flex items-center gap-3 text-brand-900 py-2">
                 <Phone size={20} /> <span className="font-bold text-lg">{t.nav.phone_label}</span>
             </a>
             <button onClick={() => scrollToSection('contatti')} className="w-full mt-4 bg-brand-accent text-brand-900 font-bold uppercase py-3 tracking-widest">
